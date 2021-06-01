@@ -1,0 +1,24 @@
+// colors
+
+$darkGray: #282828;
+$lightCyan: #ACCEC4;
+
+$white: #ffffff;
+
+$cyan: #6CA399;
+$darkCyan: #00745F;
+$darkerCyan: darken($darkCyan, 2%);
+$darkDarkerCyan: darken($darkCyan, 4%);
+// animations
+
+$animationNormal: 0.15s;
+
+// geometry
+
+$mediumRadius: 12px;
+$largeRadius: 20px;
+
+// fonts
+
+$fontSizeMedium: 18px;
+$fontSizeLarge: 24px;
