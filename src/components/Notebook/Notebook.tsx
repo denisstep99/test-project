@@ -3,11 +3,14 @@ import * as React from "react";
 import {Note} from "../Note/Note";
 import {useDispatch, useSelector} from "react-redux";
 import {getNotesSorted} from "../../store/notes/Selectors";
-import {removeNoteRequestAction} from "../../sagas/notes/Actions";
+import {changePositionRequestAction, removeNoteRequestAction} from "../../sagas/notes/Actions";
 
-interface INotebookProps {}
+interface INotebookProps {
+    onEdit?(noteId: string): void;
+    editMode?: boolean;
+}
 
-export const Notebook:React.VFC<INotebookProps> = (notebookId) => {
+export const Notebook:React.VFC<INotebookProps> = ({onEdit}) => {
     const dispatch = useDispatch();
     const notes = useSelector(getNotesSorted);
 
@@ -15,11 +18,22 @@ export const Notebook:React.VFC<INotebookProps> = (notebookId) => {
         dispatch(removeNoteRequestAction(noteId));
     }
 
+    const changeNotePositionHandler = (noteId: string, isIncrement: boolean) => {
+        dispatch(changePositionRequestAction(noteId, isIncrement));
+    }
+
     return (
         <div className="notebook">
             {notes.map((note) => {
                 return (
-                    <Note key={note.noteId} mix={"notebook__note"} {...note} onRemove={removeNoteHandler}/>
+                    <Note
+                        {...note}
+                        key={note.noteId}
+                        mix={"notebook__note"}
+                        onEdit={onEdit}
+                        onRemove={removeNoteHandler}
+                        onPositionChange={changeNotePositionHandler}
+                    />
                 );
             })};
         </div>

@@ -10,6 +10,16 @@ export const getNotesSorted = createSelector(getNotes, (notes): Array<INote> => 
        .sort((firstNote, secondNote) => firstNote.position - secondNote.position);
 });
 
+export const getNoteByPosition = (position: number) => createSelector(getNotes, (notes): INote | null => {
+   return Object
+       .values(notes)
+       .find(note => note.position === position) || null;
+});
+
+export const getNoteById = (noteId: string) => createSelector(getNotes, (notes): INote | null => {
+   return notes[noteId] || null;
+});
+
 export const getMaxPosition = createSelector(getNotes, (notes): number => {
    return Object
        .values(notes)

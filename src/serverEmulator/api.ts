@@ -50,7 +50,7 @@ export async function getNotes(): Promise<IResponse<Array<INote> | Error>> {
     });
 }
 
-export async function updateNotes(noteToUpdate: Array<INote>): Promise<IResponse<Error>> {
+export async function updateNotes(notesToUpdate: Array<INote>): Promise<IResponse<Error>> {
     const notesResponse = await getNotes();
 
     if (!Array.isArray(notesResponse.payload)) {
@@ -60,13 +60,13 @@ export async function updateNotes(noteToUpdate: Array<INote>): Promise<IResponse
     const notes = notesResponse.payload;
     const storedNotesIds = new Set(notes.map(note => note.noteId));
 
-    if (!noteToUpdate.every(note => storedNotesIds.has(note.noteId))) {
+    if (!notesToUpdate.every(note => storedNotesIds.has(note.noteId))) {
         return {
             status: STATUS_CODE.BAD,
         }
     }
 
-    noteToUpdate.forEach((currentNote) => {
+    notesToUpdate.forEach((currentNote) => {
        const noteIndex = notes.findIndex(note => note.noteId === currentNote.noteId);
        notes[noteIndex] = currentNote;
     });
@@ -93,7 +93,7 @@ export async function removeNote(noteId: string): Promise<IResponse> {
 
     if (currentNote) {
         notes.forEach(note => {
-            if (note.position >= currentNote.position) {
+            if (note.position > currentNote.position) {
                 note.position -= 1;
             }
         });

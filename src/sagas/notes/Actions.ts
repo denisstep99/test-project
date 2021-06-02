@@ -1,4 +1,11 @@
-import {AddNoteRequestAction, GetNotesRequestAction, NOTE_SAGA_ACTION, RemoveNoteRequestAction} from "./Types";
+import {
+    AddNoteRequestAction,
+    ChangePositionRequestAction,
+    GetNotesRequestAction,
+    NOTE_SAGA_ACTION,
+    RemoveNoteRequestAction,
+    SetNoteRequestAction
+} from "./Types";
 import {INote} from "../../store/notes/Types";
 
 export function getNotesRequestAction(): GetNotesRequestAction {
@@ -21,6 +28,25 @@ export function removeNoteRequestAction(noteId: string): RemoveNoteRequestAction
         type: NOTE_SAGA_ACTION.REMOVE_NOTE_REQUEST,
         payload: {
             noteId,
+        }
+    }
+}
+
+export function setNoteRequestAction(updatedNote: INote): SetNoteRequestAction {
+    return {
+        type: NOTE_SAGA_ACTION.SET_NOTE_REQUEST,
+        payload: {
+            updatedNote,
+        }
+    }
+}
+
+export function changePositionRequestAction(noteId: string, isIncrement: boolean): ChangePositionRequestAction {
+    return {
+        type: NOTE_SAGA_ACTION.CHANGE_POSITION_REQUEST,
+        payload: {
+            noteId,
+            isIncrement,
         }
     }
 }
