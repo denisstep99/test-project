@@ -2,6 +2,7 @@ export enum NOTE_ACTION {
     ADD_NOTE = "NOTE/ADD_NOTE",
     REMOVE_NOTE = "NOTE/REMOVE_NOTE",
     CHANGE_POSITION = "NOTE/CHANGE_POSITION",
+    SET_NOTES = "NOTE/SET_NOTES",
 }
 
 export interface INote {
@@ -11,13 +12,16 @@ export interface INote {
     description: string;
 }
 
+interface SetNotesAction {
+    type: typeof NOTE_ACTION.SET_NOTES;
+    payload: {
+        notes: Array<INote>
+    }
+}
+
 interface AddNoteAction {
     type: typeof NOTE_ACTION.ADD_NOTE;
-    payload: {
-        position: number;
-        title: string;
-        description: string;
-    }
+    payload: INote
 }
 
 interface RemoveNoteAction {
@@ -27,7 +31,7 @@ interface RemoveNoteAction {
     }
 }
 
-interface ChangeNotePosition {
+interface ChangeNotePositionAction {
     type: typeof NOTE_ACTION.CHANGE_POSITION;
     payload: {
         noteId: string;
@@ -35,4 +39,4 @@ interface ChangeNotePosition {
     }
 }
 
-export type NoteActionsTypes = AddNoteAction | RemoveNoteAction | ChangeNotePosition;
+export type NoteActionsTypes = AddNoteAction | RemoveNoteAction | ChangeNotePositionAction | SetNotesAction;

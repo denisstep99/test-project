@@ -1,12 +1,19 @@
-import {NOTE_ACTION, NoteActionsTypes} from "./Types";
+import {INote, NOTE_ACTION, NoteActionsTypes} from "./Types";
 
-export function addNoteAction(position: number, title: string, description: string): NoteActionsTypes {
+export function setNotesAction(notes: Array<INote>): NoteActionsTypes {
+    return {
+        type: NOTE_ACTION.SET_NOTES,
+        payload: {
+            notes,
+        }
+    }
+}
+
+export function addNoteAction(newNote: INote): NoteActionsTypes {
     return {
         type: NOTE_ACTION.ADD_NOTE,
         payload: {
-            position,
-            title,
-            description,
+            ...newNote
         }
     }
 }

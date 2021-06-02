@@ -1,5 +1,4 @@
 import produce, {Draft} from "immer";
-import { v4 as uuid } from 'uuid';
 import {INote, NOTE_ACTION, NoteActionsTypes} from "./Types";
 
 export interface INotesState {
@@ -10,10 +9,14 @@ const INITIAL_STATE: INotesState = {};
 
 export const notesReducer = produce((draft: Draft<INotesState>, action: NoteActionsTypes) => {
     switch (action.type) {
+        case NOTE_ACTION.SET_NOTES: {
+            const {notes} = action.payload;
+            notes.forEach(note => draft[note.noteId] = note);
+            break;
+        }
         case NOTE_ACTION.ADD_NOTE: {
-            const noteId = uuid();
-
-            draft[noteId] = {noteId, ...action.payload};
+            const {noteId} = action.payload;
+            draft[noteId] = {...action.payload};
             break;
         }
         case NOTE_ACTION.REMOVE_NOTE: {

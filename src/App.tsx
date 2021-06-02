@@ -1,17 +1,19 @@
-import React from 'react';
-import {Provider} from 'react-redux';
+import React, {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import './App.css';
 
-import {Note} from "./components/Note/Note";
-import {rootStore} from "./store";
+import {NotebookScreen} from "./screens/NotebookScreen";
+import {getNotesRequestAction} from "./sagas/notes/Actions";
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {dispatch(getNotesRequestAction());}, [dispatch]);
+
     return (
-        <Provider store={rootStore}>
             <div className="App">
-                <Note description={'sdsd'} index={2} title={'dsd'}/>
+                <NotebookScreen />
             </div>
-        </Provider>
     );
 }
 
