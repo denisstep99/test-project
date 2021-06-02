@@ -1,7 +1,7 @@
 @import '../common.styles/styles';
 
 .notebook-screen {
-  height: 100vh;
+  min-height: 100vh;
   padding: 160px 240px;
 
   box-sizing: border-box;

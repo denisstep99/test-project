@@ -59,8 +59,10 @@ function* changePosition(action: ChangePositionRequestAction): SagaIterator {
             anotherNote = {...anotherNote, position: anotherNote.position - 1};
             currentNote = {...currentNote, position: currentNote.position + 1};
 
-            yield call(updateNotes, [anotherNote, currentNote]);
-            yield put(changeNotePosition(noteId, isIncrement));
+            const response: IResponse = yield call(updateNotes, [anotherNote, currentNote]);
+            if (response.status === STATUS_CODE.GOOD) {
+                yield put(changeNotePosition(noteId, isIncrement));
+            }
         }
         return;
     }
@@ -71,16 +73,20 @@ function* changePosition(action: ChangePositionRequestAction): SagaIterator {
         anotherNote = {...anotherNote, position: anotherNote.position + 1};
         currentNote = {...currentNote, position: currentNote.position - 1};
 
-        yield call(updateNotes, [anotherNote, currentNote]);
-        yield put(changeNotePosition(noteId, isIncrement));
+        const response: IResponse = yield call(updateNotes, [anotherNote, currentNote]);
+        if (response.status === STATUS_CODE.GOOD) {
+            yield put(changeNotePosition(noteId, isIncrement));
+        }
     }
 }
 
 function* setNote(action: SetNoteRequestAction): SagaIterator {
     const { updatedNote } = action.payload;
 
-    yield call(updateNotes, [updatedNote]);
-    yield put(setNotesAction([updatedNote]));
+    const response: IResponse = yield call(updateNotes, [updatedNote]);
+    if (response.status === STATUS_CODE.GOOD) {
+        yield put(setNotesAction([updatedNote]));
+    }
 }
 
 

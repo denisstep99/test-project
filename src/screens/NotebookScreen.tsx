@@ -12,7 +12,8 @@ import {getMaxPosition, getNoteById} from "../store/notes/Selectors";
 
 interface INotebookScreenProps {}
 
-export const NotebookScreen:React.VFC<INotebookScreenProps> = () => {
+export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
+
     const dispatch = useDispatch();
 
     const [position, setPosition] = useState<number>(1);
@@ -27,7 +28,7 @@ export const NotebookScreen:React.VFC<INotebookScreenProps> = () => {
 
     const positionChangeHandler = useCallback((position: string) => {
         const currentPosition = parseInt(position);
-        
+
         if (currentPosition > 0 && currentPosition <= maxPosition) {
             setPosition(currentPosition);
         }
@@ -68,7 +69,7 @@ export const NotebookScreen:React.VFC<INotebookScreenProps> = () => {
     const noteEditHandler = (noteId: string) => {
         setEditNoteId(noteId);
     }
-    
+
     useEffect(() => {
         if (editableNote) {
             setPosition(editableNote.position);
@@ -76,19 +77,37 @@ export const NotebookScreen:React.VFC<INotebookScreenProps> = () => {
             setDescription(editableNote.description);
         }
     }, [editableNote]);
-    
+
     useEffect(() => {
         if (position > maxPosition) {
             setPosition(maxPosition);
         }
     }, [maxPosition, position]);
 
+
     return (
         <div className="notebook-screen">
             <div className="notebook-screen__header">
-                <InputField disabled={!!editNoteId} value={position} type={INPUT_TYPE.NUMBER} max={maxPosition} onChange={positionChangeHandler} placeholder="Номер"/>
-                <InputField value={title} type={INPUT_TYPE.TEXT} onChange={setTitle} placeholder="Название"/>
-                <InputField value={description} type={INPUT_TYPE.TEXT} onChange={setDescription} placeholder="Описание"/>
+                <InputField
+                    disabled={!!editNoteId}
+                    value={position}
+                    type={INPUT_TYPE.NUMBER}
+                    max={maxPosition}
+                    onChange={positionChangeHandler}
+                    placeholder="Номер"
+                />
+                <InputField
+                    value={title}
+                    type={INPUT_TYPE.TEXT}
+                    onChange={setTitle}
+                    placeholder="Название"
+                />
+                <InputField
+                    value={description}
+                    type={INPUT_TYPE.TEXT}
+                    onChange={setDescription}
+                    placeholder="Описание"
+                />
                 <Button label={buttonLabel} onClick={addButtonClickHandler}/>
             </div>
 

@@ -11,6 +11,7 @@ interface INotebookProps {
 }
 
 export const Notebook:React.VFC<INotebookProps> = ({onEdit}) => {
+
     const dispatch = useDispatch();
     const notes = useSelector(getNotesSorted);
 
@@ -21,6 +22,7 @@ export const Notebook:React.VFC<INotebookProps> = ({onEdit}) => {
     const changeNotePositionHandler = (noteId: string, isIncrement: boolean) => {
         dispatch(changePositionRequestAction(noteId, isIncrement));
     }
+
 
     return (
         <div className="notebook">

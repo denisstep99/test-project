@@ -8,9 +8,11 @@ interface IButtonProps {
 }
 
 export const Button: React.VFC<IButtonProps> = React.memo(({label, onClick}) => {
+
+
     return (
-      <button className="button" onClick={onClick}>
-          {label}
-      </button>
+        <button className="button" onClick={onClick}>
+            {label}
+        </button>
     );
 });

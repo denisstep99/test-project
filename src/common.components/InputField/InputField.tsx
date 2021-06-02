@@ -10,18 +10,21 @@ export enum INPUT_TYPE {
 }
 
 interface IInputFieldProps {
-    placeholder?: string;
     value: string | number;
-    onChange?(value: string): void;
+    type: INPUT_TYPE,
+
+    placeholder?: string;
     max?: number;
     disabled?: boolean;
 
-    type: INPUT_TYPE,
+    onChange?(value: string): void;
 }
 
 export const InputField: React.VFC<IInputFieldProps> = React.memo(({placeholder, onChange, type, value, max, disabled}) => {
+
     const changeValueHandler: ChangeEventHandler =
         (event: ChangeEvent<HTMLInputElement>) => onChange && onChange(event.currentTarget.value || "");
+
 
     return (
         <input

@@ -8,8 +8,10 @@ interface INotePaginationProps {
 }
 
 export const NotePagination: React.VFC<INotePaginationProps> = React.memo(({onClick}) => {
+
     const topButtonClickHandler = () => onClick(true);
     const bottomButtonClickHandler = () => onClick(false);
+
 
     return (
         <div className="note__pagination">

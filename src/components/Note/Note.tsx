@@ -30,9 +30,19 @@ export const Note: React.VFC<INoteProps> = React.memo(
          onPositionChange,
          onRemove
      }) => {
-        const editClickHandler = () => {onEdit && onEdit(noteId)};
-        const removeClickHandler = () => {onRemove && onRemove(noteId)};
-        const paginationClickHandler = (isUpButton: boolean) => {onPositionChange && onPositionChange(noteId, !isUpButton)}
+
+        const editClickHandler = () => {
+            onEdit && onEdit(noteId);
+        };
+
+        const removeClickHandler = () => {
+            onRemove && onRemove(noteId);
+        };
+
+        const paginationClickHandler = (isUpButton: boolean) => {
+            onPositionChange && onPositionChange(noteId, !isUpButton);
+        }
+
 
         return (
             <div className={cx("note", mix)}>

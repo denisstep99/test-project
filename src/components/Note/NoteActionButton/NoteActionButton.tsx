@@ -18,7 +18,9 @@ interface INoteActionButtonProps {
 }
 
 export const NoteActionButton: React.VFC<INoteActionButtonProps> = React.memo(({type, onClick, mix}) => {
+
     const IconSVG = type === ACTION_BUTTON_TYPE.DELETE ? DeleteSVG : PenSVG;
+
 
     return (
         <button className={cx("note__action-button", mix)} onClick={onClick}>
