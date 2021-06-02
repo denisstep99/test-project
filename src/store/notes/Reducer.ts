@@ -15,12 +15,26 @@ export const notesReducer = produce((draft: Draft<INotesState>, action: NoteActi
             break;
         }
         case NOTE_ACTION.ADD_NOTE: {
-            const {noteId} = action.payload;
+            const {noteId, position} = action.payload;
+
+            Object.values(draft).forEach(note => {
+               if (note.position >= position) {
+                   draft[note.noteId].position += 1;
+               }
+            });
+
             draft[noteId] = {...action.payload};
             break;
         }
         case NOTE_ACTION.REMOVE_NOTE: {
             const {noteId} = action.payload;
+            const currentNote = draft[noteId];
+
+            Object.values(draft).forEach(note => {
+                if (note.position > currentNote.position) {
+                    draft[note.noteId].position -= 1;
+                }
+            });
 
             delete draft[noteId];
             break;

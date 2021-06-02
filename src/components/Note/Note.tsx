@@ -12,14 +12,14 @@ interface INoteProps {
 
     mix?: string;
 
-    onRemove?(): void;
+    onRemove?(noteId: string): void;
 
-    onPositionChange?(): void;
+    onPositionChange?(noteId: string, isIncrement: boolean): void;
 
-    onEdit?(): void;
+    onEdit?(noteId: string): void;
 }
 
-export const Note: React.VFC<INoteProps> =
+export const Note: React.VFC<INoteProps> = React.memo(
     ({
          position,
          title,
@@ -30,6 +30,10 @@ export const Note: React.VFC<INoteProps> =
          onPositionChange,
          onRemove
      }) => {
+        const editClickHandler = () => {onEdit && onEdit(noteId)};
+        const removeClickHandler = () => {onRemove && onRemove(noteId)};
+        const paginationClickHandler = (isUpButton: boolean) => {onPositionChange && onPositionChange(noteId, !isUpButton)}
+
         return (
             <div className={cx("note", mix)}>
                 <div className="note__index">
@@ -45,15 +49,12 @@ export const Note: React.VFC<INoteProps> =
                     </div>
                     <div className="note__buttons">
                         <NoteActionButton mix="note__action-button_margin_right" type={ACTION_BUTTON_TYPE.DELETE}
-                                          onClick={() => {
-                                          }}/>
+                                          onClick={removeClickHandler}/>
                         <NoteActionButton mix="note__action-button_margin_right" type={ACTION_BUTTON_TYPE.EDIT}
-                                          onClick={() => {
-                                          }}/>
-                        <NotePagination onClick={() => {
-                        }}/>
+                                          onClick={editClickHandler}/>
+                        <NotePagination onClick={paginationClickHandler}/>
                     </div>
                 </div>
             </div>
         );
-    }
+    });

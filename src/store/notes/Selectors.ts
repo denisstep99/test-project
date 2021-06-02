@@ -9,3 +9,9 @@ export const getNotesSorted = createSelector(getNotes, (notes): Array<INote> => 
        .values(notes)
        .sort((firstNote, secondNote) => firstNote.position - secondNote.position);
 });
+
+export const getMaxPosition = createSelector(getNotes, (notes): number => {
+   return Object
+       .values(notes)
+       .reduce((maxPosition, currentNote) => Math.max(maxPosition, currentNote.position), 0);
+});

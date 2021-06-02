@@ -1,6 +1,6 @@
 import {INote} from "../store/notes/Types";
 
-enum STATUS_CODE {
+export enum STATUS_CODE {
     GOOD = 200,
     BAD = 500,
 }
@@ -89,6 +89,16 @@ export async function removeNote(noteId: string): Promise<IResponse> {
 
     const notes = notesResponse.payload;
 
+    const currentNote = notes.find(note => note.noteId === noteId);
+
+    if (currentNote) {
+        notes.forEach(note => {
+            if (note.position >= currentNote.position) {
+                note.position -= 1;
+            }
+        });
+    }
+
     const filteredNotes = notes.filter(note => note.noteId !== noteId);
 
     setLocal('notes', filteredNotes);
@@ -110,6 +120,12 @@ export async function createNote(newNote: INote): Promise<IResponse<INote | Erro
             status: STATUS_CODE.BAD,
         }
     }
+
+    notes.forEach(note => {
+        if (note.position >= newNote.position) {
+            note.position += 1;
+        }
+    });
 
     notes.push(newNote);
 
