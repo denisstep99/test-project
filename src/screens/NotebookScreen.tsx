@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addNotesRequestAction, setNoteRequestAction} from "../sagas/notes/Actions";
 import {v4 as uuid} from "uuid";
 import {getMaxPosition, getNoteById} from "../store/notes/Selectors";
+import {useTranslation} from "react-i18next";
 
 
 interface INotebookScreenProps {}
@@ -16,13 +17,17 @@ export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
 
     const dispatch = useDispatch();
 
+    const {t, i18n} = useTranslation();
+
+    const language = i18n.language;
+
     const [position, setPosition] = useState<number>(1);
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
 
     const [editNoteId, setEditNoteId] = useState<string | null>(null);
     const editableNote = useSelector(getNoteById(editNoteId || ''));
-    const buttonLabel = editNoteId ? "Отредактировать" : "Добавить";
+    const buttonLabel = editNoteId ? 'editButtonText' : 'addButtonText';
 
     const maxPosition = useSelector(getMaxPosition) + 1;
 
@@ -33,6 +38,11 @@ export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
             setPosition(currentPosition);
         }
     }, [maxPosition]);
+
+    const changeLanguageButtonClickHandler = () => {
+        i18n.changeLanguage(['ru', 'en'][Number(language === 'ru')]);
+    }
+
 
     const addButtonClickHandler = () => {
         if (editNoteId && editableNote) {
@@ -100,15 +110,16 @@ export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
                     value={title}
                     type={INPUT_TYPE.TEXT}
                     onChange={setTitle}
-                    placeholder="Название"
+                    placeholder={t('rowNameInputPlaceholder')}
                 />
                 <InputField
                     value={description}
                     type={INPUT_TYPE.TEXT}
                     onChange={setDescription}
-                    placeholder="Описание"
+                    placeholder={t('rowDescriptionPlaceholder')}
                 />
                 <Button label={buttonLabel} onClick={addButtonClickHandler}/>
+                <Button label={language} onClick={changeLanguageButtonClickHandler}/>
             </div>
 
             <Notebook onEdit={noteEditHandler}/>

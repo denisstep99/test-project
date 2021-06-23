@@ -1,3 +1,5 @@
+import {ActionCustomType} from "../utils";
+
 export enum NOTE_ACTION {
     ADD_NOTE = "NOTE/ADD_NOTE",
     REMOVE_NOTE = "NOTE/REMOVE_NOTE",
@@ -12,31 +14,13 @@ export interface INote {
     description: string;
 }
 
-interface SetNotesAction {
-    type: typeof NOTE_ACTION.SET_NOTES;
-    payload: {
-        notes: Array<INote>
-    }
-}
+export type SetNotesPayload = ActionCustomType<NOTE_ACTION.SET_NOTES, Array<INote>>;
 
-interface AddNoteAction {
-    type: typeof NOTE_ACTION.ADD_NOTE;
-    payload: INote
-}
+export type AddNotePayload = ActionCustomType<NOTE_ACTION.ADD_NOTE, INote>;
 
-interface RemoveNoteAction {
-    type: typeof NOTE_ACTION.REMOVE_NOTE;
-    payload: {
-        noteId: string;
-    }
-}
+export type RemoveNotePayload = ActionCustomType<NOTE_ACTION.REMOVE_NOTE, string>;
 
-interface ChangeNotePositionAction {
-    type: typeof NOTE_ACTION.CHANGE_POSITION;
-    payload: {
-        noteId: string;
-        isPositionIncrement: boolean;
-    }
-}
-
-export type NoteActionsTypes = AddNoteAction | RemoveNoteAction | ChangeNotePositionAction | SetNotesAction;
+export type ChangeNotePositionPayload = ActionCustomType<NOTE_ACTION.CHANGE_POSITION, {
+    noteId: string;
+    isPositionIncrement: boolean;
+}>;

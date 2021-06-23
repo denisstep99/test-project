@@ -9,7 +9,7 @@ import {
     updateNotes
 } from "../../serverEmulator/api";
 import {INote} from "../../store/notes/Types";
-import {addNoteAction, changeNotePosition, removeNoteAction, setNotesAction} from "../../store/notes/Actions";
+import {addNoteAction, changeNotePositionAction, removeNoteAction, setNotesAction} from "../../store/notes/Actions";
 import {
     AddNoteRequestAction,
     ChangePositionRequestAction,
@@ -61,7 +61,7 @@ function* changePosition(action: ChangePositionRequestAction): SagaIterator {
 
             const response: IResponse = yield call(updateNotes, [anotherNote, currentNote]);
             if (response.status === STATUS_CODE.GOOD) {
-                yield put(changeNotePosition(noteId, isIncrement));
+                yield put(changeNotePositionAction({noteId, isPositionIncrement: isIncrement}));
             }
         }
         return;
@@ -75,7 +75,7 @@ function* changePosition(action: ChangePositionRequestAction): SagaIterator {
 
         const response: IResponse = yield call(updateNotes, [anotherNote, currentNote]);
         if (response.status === STATUS_CODE.GOOD) {
-            yield put(changeNotePosition(noteId, isIncrement));
+            yield put(changeNotePositionAction({noteId, isPositionIncrement: isIncrement}));
         }
     }
 }

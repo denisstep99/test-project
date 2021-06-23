@@ -37,7 +37,7 @@ export const Notebook:React.VFC<INotebookProps> = ({onEdit}) => {
                         onPositionChange={changeNotePositionHandler}
                     />
                 );
-            })};
+            })}
         </div>
     );
 };

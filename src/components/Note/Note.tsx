@@ -3,6 +3,7 @@ import * as React from "react";
 import cx from 'classnames';
 import {ACTION_BUTTON_TYPE, NoteActionButton} from "./NoteActionButton/NoteActionButton";
 import {NotePagination} from "./NotePagination/NotePagination";
+import {Text} from "../../common.components/Text/Text";
 
 interface INoteProps {
     noteId: string;
@@ -51,11 +52,11 @@ export const Note: React.VFC<INoteProps> = React.memo(
                 </div>
                 <div className="note__body">
                     <div className="note__title">
-                        {title}
+                        <Text label={title}/>
                     </div>
                     <div className="note__delimiter"/>
                     <div className="note__description">
-                        {description}
+                        <Text label={description}/>
                     </div>
                     <div className="note__buttons">
                         <NoteActionButton mix="note__action-button_margin_right" type={ACTION_BUTTON_TYPE.DELETE}

@@ -1,38 +1,11 @@
-import {INote, NOTE_ACTION, NoteActionsTypes} from "./Types";
+import {
+    AddNotePayload, ChangeNotePositionPayload,
+    NOTE_ACTION, RemoveNotePayload,
+    SetNotesPayload
+} from "./Types";
+import {createTypedAction} from "../utils";
 
-export function setNotesAction(notes: Array<INote>): NoteActionsTypes {
-    return {
-        type: NOTE_ACTION.SET_NOTES,
-        payload: {
-            notes,
-        }
-    }
-}
-
-export function addNoteAction(newNote: INote): NoteActionsTypes {
-    return {
-        type: NOTE_ACTION.ADD_NOTE,
-        payload: {
-            ...newNote
-        }
-    }
-}
-
-export function removeNoteAction(noteId: string): NoteActionsTypes {
-    return {
-        type: NOTE_ACTION.REMOVE_NOTE,
-        payload: {
-            noteId,
-        }
-    }
-}
-
-export function changeNotePosition(noteId: string, isPositionIncrement: boolean): NoteActionsTypes {
-    return {
-        type: NOTE_ACTION.CHANGE_POSITION,
-        payload: {
-            noteId,
-            isPositionIncrement
-        }
-    }
-}
+export const setNotesAction = createTypedAction<SetNotesPayload>(NOTE_ACTION.SET_NOTES);
+export const addNoteAction = createTypedAction<AddNotePayload>(NOTE_ACTION.ADD_NOTE);
+export const removeNoteAction = createTypedAction<RemoveNotePayload>(NOTE_ACTION.REMOVE_NOTE);
+export const changeNotePositionAction = createTypedAction<ChangeNotePositionPayload>(NOTE_ACTION.CHANGE_POSITION);

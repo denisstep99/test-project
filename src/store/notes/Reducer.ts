@@ -1,48 +1,23 @@
-import produce, {Draft} from "immer";
-import {INote, NOTE_ACTION, NoteActionsTypes} from "./Types";
+import {INote} from "./Types";
+import {createReducer} from "@reduxjs/toolkit";
+import * as noteAction from "./Actions";
 
 export interface INotesState {
-  readonly [key: string]: INote;
+    readonly [key: string]: INote;
 }
 
 const INITIAL_STATE: INotesState = {};
 
-export const notesReducer = produce((draft: Draft<INotesState>, action: NoteActionsTypes) => {
-    switch (action.type) {
-        case NOTE_ACTION.SET_NOTES: {
-            const {notes} = action.payload;
-            notes.forEach(note => draft[note.noteId] = note);
-            break;
-        }
-        case NOTE_ACTION.ADD_NOTE: {
-            const {noteId, position} = action.payload;
-
-            Object.values(draft).forEach(note => {
-               if (note.position >= position) {
-                   draft[note.noteId].position += 1;
-               }
-            });
-
-            draft[noteId] = {...action.payload};
-            break;
-        }
-        case NOTE_ACTION.REMOVE_NOTE: {
-            const {noteId} = action.payload;
-            const currentNote = draft[noteId];
-
-            Object.values(draft).forEach(note => {
-                if (note.position > currentNote.position) {
-                    draft[note.noteId].position -= 1;
-                }
-            });
-
-            delete draft[noteId];
-            break;
-        }
-        case NOTE_ACTION.CHANGE_POSITION: {
+export const notesReducer = createReducer<INotesState>(INITIAL_STATE, builder => {
+    builder
+        .addCase(noteAction.setNotesAction, (state, action) => {
+            const notes = action.payload;
+            notes.forEach(note => state[note.noteId] = note);
+        })
+        .addCase(noteAction.changeNotePositionAction, (state, action) => {
             const {noteId, isPositionIncrement} = action.payload;
 
-            const currentNote = draft[noteId];
+            const currentNote = state[noteId];
             const currentPosition = currentNote.position;
 
             if (!currentNote) {
@@ -50,22 +25,44 @@ export const notesReducer = produce((draft: Draft<INotesState>, action: NoteActi
             }
 
             if (isPositionIncrement) {
-                const nextNote = Object.values(draft).find(note => note.position === currentPosition + 1);
+                const nextNote = Object.values(state).find(note => note.position === currentPosition + 1);
                 if (!nextNote) {
-                    break;
+                    return
                 }
 
-                draft[nextNote.noteId] = {...nextNote, position: currentPosition};
-                draft[currentNote.noteId] = {...currentNote, position: currentPosition + 1};
+                state[nextNote.noteId] = {...nextNote, position: currentPosition};
+                state[currentNote.noteId] = {...currentNote, position: currentPosition + 1};
             } else {
-                const previousNote = Object.values(draft).find(note => note.position === currentPosition - 1);
+                const previousNote = Object.values(state).find(note => note.position === currentPosition - 1);
                 if (!previousNote) {
-                    break;
+                    return;
                 }
 
-                draft[previousNote.noteId] = {...previousNote, position: currentPosition};
-                draft[currentNote.noteId] = {...currentNote, position: currentPosition - 1};
+                state[previousNote.noteId] = {...previousNote, position: currentPosition};
+                state[currentNote.noteId] = {...currentNote, position: currentPosition - 1};
             }
-        }
-    }
-}, INITIAL_STATE);
+        })
+        .addCase(noteAction.removeNoteAction, (state, action) => {
+            const noteId = action.payload;
+            const currentNote = state[noteId];
+
+            Object.values(state).forEach(note => {
+                if (note.position > currentNote.position) {
+                    state[note.noteId].position -= 1;
+                }
+            });
+
+            delete state[noteId];
+        })
+        .addCase(noteAction.addNoteAction, (state, action) => {
+            const {noteId, position} = action.payload;
+
+            Object.values(state).forEach(note => {
+               if (note.position >= position) {
+                   state[note.noteId].position += 1;
+               }
+            });
+
+            state[noteId] = {...action.payload};
+        })
+});
