@@ -8,7 +8,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {addNotesRequestAction, setNoteRequestAction} from "../sagas/notes/Actions";
 import {v4 as uuid} from "uuid";
 import {getMaxPosition, getNoteById} from "../store/notes/Selectors";
-import {useTranslation} from "react-i18next";
+import {useTranslate} from "../internationalization/hooks/useTranslate";
+import {useLanguage} from "../internationalization/hooks/useLanguage";
+import {useChangeLanguage} from "../internationalization/hooks/useChangeLanguage";
+import {LANGUAGE} from "../internationalization/types";
+import {SwitchButton} from "../common.components/SwitchButton/SwitchButton";
 
 
 interface INotebookScreenProps {}
@@ -17,9 +21,10 @@ export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
 
     const dispatch = useDispatch();
 
-    const {t, i18n} = useTranslation();
+    const t = useTranslate();
 
-    const language = i18n.language;
+    const language = useLanguage();
+    const changeLanguage = useChangeLanguage();
 
     const [position, setPosition] = useState<number>(1);
     const [title, setTitle] = useState<string>("");
@@ -40,7 +45,8 @@ export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
     }, [maxPosition]);
 
     const changeLanguageButtonClickHandler = () => {
-        i18n.changeLanguage(['ru', 'en'][Number(language === 'ru')]);
+        setIsActive(!isActive);
+        changeLanguage([LANGUAGE.RU, LANGUAGE.EN][Number(language === 'ru')]);
     }
 
 
@@ -94,6 +100,8 @@ export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
         }
     }, [maxPosition, position]);
 
+    const [isActive, setIsActive] = useState(false);
+
 
     return (
         <div className="notebook-screen">
@@ -119,7 +127,7 @@ export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
                     placeholder={t('rowDescriptionPlaceholder')}
                 />
                 <Button label={buttonLabel} onClick={addButtonClickHandler}/>
-                <Button label={language} onClick={changeLanguageButtonClickHandler}/>
+                <SwitchButton isSwitchedOn={isActive} labelOff={'RU'} labelOn={'EN'} onChange={changeLanguageButtonClickHandler}/>
             </div>
 
             <Notebook onEdit={noteEditHandler}/>

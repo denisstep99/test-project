@@ -9,7 +9,7 @@ import {
     updateNotes
 } from "../../serverEmulator/api";
 import {INote} from "../../store/notes/Types";
-import {addNoteAction, changeNotePositionAction, removeNoteAction, setNotesAction} from "../../store/notes/Actions";
+import {noteActions} from "../../store/notes/Slice";
 import {
     AddNoteRequestAction,
     ChangePositionRequestAction,
@@ -19,6 +19,8 @@ import {
 } from "./Types";
 import {getNoteById, getNoteByPosition} from "../../store/notes/Selectors";
 
+const {setNotesAction, addNoteAction, changeNotePositionAction, removeNoteAction} = noteActions;
+
 function* requestNotes(): Generator<StrictEffect, void, IResponse<Array<INote>>> {
     const response: IResponse<Array<INote>> = yield call(getNotes);
     const notes: Array<INote> = response.payload || [];
@@ -27,7 +29,7 @@ function* requestNotes(): Generator<StrictEffect, void, IResponse<Array<INote>>>
 }
 
 function* removeNote(action: RemoveNoteRequestAction): SagaIterator {
-    const noteId = action.payload.noteId;
+    const noteId = action.payload;
 
     const response: IResponse = yield call(apiRemoveNote, noteId);
     if (response.status === STATUS_CODE.GOOD) {
@@ -36,7 +38,7 @@ function* removeNote(action: RemoveNoteRequestAction): SagaIterator {
 }
 
 function* addNote(action: AddNoteRequestAction): SagaIterator {
-    const newNote: INote = action.payload.newNote;
+    const newNote: INote = action.payload;
 
     const response: IResponse<INote> = yield call(createNote, newNote);
     const note = response.payload;
@@ -81,7 +83,7 @@ function* changePosition(action: ChangePositionRequestAction): SagaIterator {
 }
 
 function* setNote(action: SetNoteRequestAction): SagaIterator {
-    const { updatedNote } = action.payload;
+    const updatedNote  = action.payload;
 
     const response: IResponse = yield call(updateNotes, [updatedNote]);
     if (response.status === STATUS_CODE.GOOD) {

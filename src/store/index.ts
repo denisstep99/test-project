@@ -1,4 +1,5 @@
-import {INotesState, notesReducer} from "./notes/Reducer";
+import {INotesState} from "./notes/Types";
+import notesReducer from "./notes/Slice";
 import sagas from './../sagas/notes/Saga';
 import {configureStore, getDefaultMiddleware, combineReducers} from "@reduxjs/toolkit";
 import createSagaMiddleware from 'redux-saga'
