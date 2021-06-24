@@ -13,6 +13,8 @@ import {useLanguage} from "../internationalization/hooks/useLanguage";
 import {useChangeLanguage} from "../internationalization/hooks/useChangeLanguage";
 import {LANGUAGE} from "../internationalization/types";
 import {SwitchButton} from "../common.components/SwitchButton/SwitchButton";
+import {MainMenuItem} from "../common.components/MainMenu/MenuItem/MainMenuItem";
+import {MainMenu} from "../common.components/MainMenu/MainMenu";
 
 
 interface INotebookScreenProps {}
@@ -105,6 +107,12 @@ export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
 
     return (
         <div className="notebook-screen">
+            <MainMenu user={{userRole: 'Admin', username: "Denis"}} logoutLink={'/'}>
+                <MainMenuItem exact link={"/"} title="Основное"/>
+                <MainMenuItem exact link={"/3"} title="Администрирование"/>
+                <MainMenuItem exact link={"/6"} title="Словари"/>
+                <MainMenuItem exact link={"/9"} title="Управление"/>
+            </MainMenu>
             <div className="notebook-screen__header">
                 <InputField
                     disabled={!!editNoteId}
