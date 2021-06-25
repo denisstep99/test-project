@@ -8,7 +8,7 @@ interface IButtonProps {
     onClick?(): void;
 }
 
-export const Button: React.VFC<IButtonProps> = React.memo(({label, onClick}) => {
+export const Button = React.memo<IButtonProps>(({label, onClick}) => {
 
 
     return (

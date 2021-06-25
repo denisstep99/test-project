@@ -1,16 +1,11 @@
 import './MainMenuItem.scss';
 import * as React from "react";
 import {NavLink} from "react-router-dom";
+import {IMenuItem} from "../../types/menu";
 
-interface IMainMenuItemProps {
-    title: string;
-    link?: string;
-    exact?: boolean;
+export interface IMainMenuItemProps extends IMenuItem {}
 
-    onClick?(): void;
-}
-
-export const MainMenuItem: React.FC<IMainMenuItemProps> = React.memo(({link, title, onClick, exact}) => {
+export const MainMenuItem = React.memo<IMainMenuItemProps>(({link, title, onClick, exact}) => {
     if (link) {
         return (
             <NavLink to={link} exact={exact} onClick={onClick} className="main-menu-item" activeClassName="main-menu-item_selected">

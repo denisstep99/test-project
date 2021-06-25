@@ -24,5 +24,20 @@
 
 .main-menu__logout-link {
   color: white;
-  text-decoration: none;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    color: #ced0e0;
+  }
 }
+
+.main-menu__user-info {
+  margin-right: 12px;
+
+  &::after {
+    content: '|';
+    margin-left: 12px;
+  }
+}
+

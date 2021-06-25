@@ -5,8 +5,6 @@ import './App.css';
 
 import {NotebookScreen} from "./screens/NotebookScreen";
 import {getNotesRequestAction} from "./sagas/notes/Actions";
-import {MainMenu} from "./common.components/MainMenu/MainMenu";
-import {MainMenuItem} from "./common.components/MainMenu/MenuItem/MainMenuItem";
 
 function App() {
     const dispatch = useDispatch();
