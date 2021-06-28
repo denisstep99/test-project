@@ -10,14 +10,14 @@ interface ISwitchButtonProps {
     labelOn?: React.ReactNode;
     labelOff?: React.ReactNode;
 
-    className?: string | Array<string>;
+    className?: string;
     labelFor?: string;
     disabled?: boolean;
 
     onChange?(isSwitchedOn: boolean): void;
 }
 
-export const SwitchButton: React.VFC<ISwitchButtonProps> = React.memo(({
+export const SwitchButton = React.memo<ISwitchButtonProps>(({
                                                                            labelOn,
                                                                            labelOff,
                                                                            className,
