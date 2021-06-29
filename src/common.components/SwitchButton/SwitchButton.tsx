@@ -4,7 +4,7 @@ import cx from 'classnames';
 import {v4 as uuid} from "uuid";
 import {ChangeEvent, useState} from "react";
 
-interface ISwitchButtonProps {
+export interface ISwitchButtonProps {
     isSwitchedOn: boolean;
 
     labelOn?: React.ReactNode;

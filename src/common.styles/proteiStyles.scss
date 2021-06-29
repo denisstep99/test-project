@@ -1,4 +1,14 @@
-//colors
+//fonts
+$fontFamilyDefault: Roboto, Arial, sans-serif;
+
+$fontSizeLarge: 18px;
+$fontSizeDefault: 16px;
+$fontSizeSmall: 14px;
+$fontSizeTiny: 13px;
+
+
+
+// colors
 $bgMain: #F6FAFF;
 $primary: #345D9B;
 $primaryDark: #104779;
@@ -9,3 +19,8 @@ $warning: #F68C2A;
 
 $gray: #C4C4C4;
 $darkGray: #969696;
+
+// shape
+$radiusDefault: 8px;
+
+$shadowDefault: 0 1px 2px 0 rgba(0,0,0,.25);
