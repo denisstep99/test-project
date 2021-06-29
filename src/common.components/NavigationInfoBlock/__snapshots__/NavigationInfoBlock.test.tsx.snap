@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationInfoBlock component. Should render correctly 1`] = `
+<div
+  className="navigation-info-block"
+>
+  <div
+    className="navigation-info-block__label"
+  >
+    Параметры оператора MVNO
+  </div>
+  <div
+    className="navigation-info-block__bread-crumbs"
+  >
+    <span
+      className="navigation-info-block__bread-crumb"
+      key="0"
+    >
+      Основное
+    </span>
+    <Link
+      className="navigation-info-block__bread-crumb"
+      key="1"
+      to="/link_1"
+    >
+      Побочное
+    </Link>
+    <Link
+      className="navigation-info-block__bread-crumb"
+      key="2"
+      to="/link_2"
+    >
+      Лишнее
+    </Link>
+  </div>
+</div>
+`;

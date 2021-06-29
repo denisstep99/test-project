@@ -29,13 +29,13 @@ Default.args = {
 export const WithGroups = Template.bind({});
 WithGroups.args = {
     children: [
-        <SideMenuGroup>
-            <SideMenuItem key={1} title={'Основное'} link={'/1'} exact/>
-            <SideMenuItem key={2} title={'Администрирование'} link={'/2'} exact/>
-            <SideMenuItem key={3} title={'Словари'} link={'/3'} exact/>
+        <SideMenuGroup key={1}>
+            <SideMenuItem title={'Основное'} link={'/1'} exact/>
+            <SideMenuItem title={'Администрирование'} link={'/2'} exact/>
+            <SideMenuItem title={'Словари'} link={'/3'} exact/>
         </SideMenuGroup>,
-        <SideMenuGroup>
-            <SideMenuItem key={1} title={'Дополнительное'} link={'/4'} exact/>
+        <SideMenuGroup key={2}>
+            <SideMenuItem title={'Дополнительное'} link={'/4'} exact/>
         </SideMenuGroup>,
     ],
 };

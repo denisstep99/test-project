@@ -16,7 +16,7 @@ interface INavigationInfoBlockProps {
      */
     currentSection: string;
     /**
-     * Хлебные крошки к разделу
+     * Хлебные крошки к подразделам
      */
     breadCrumbs?: Array<IBreadCrumb>
 }
@@ -33,18 +33,18 @@ export const NavigationInfoBlock: React.VFC<INavigationInfoBlockProps> = (({
             </div>
             <div className="navigation-info-block__bread-crumbs">
                 {
-                    breadCrumbs?.map((breadCrumb) => {
+                    breadCrumbs?.map((breadCrumb, index) => {
                         const {link, label} = breadCrumb;
 
                         if (link) {
                             return (
-                                <Link to={link} className="navigation-info-block__bread-crumb">
+                                <Link key={index} to={link} className="navigation-info-block__bread-crumb">
                                     {label}
                                 </Link>
                             );
                         }
                         return (
-                            <span className="navigation-info-block__bread-crumb">
+                            <span key={index} className="navigation-info-block__bread-crumb">
                                 {label}
                             </span>
                         );
