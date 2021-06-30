@@ -1,7 +1,7 @@
 import './SideMenu.scss';
 import * as React from "react";
 import cx from 'classnames';
-import {IMainMenuItemProps} from "../MainMenu/MenuItem/MainMenuItem";
+import {IMainMenuItemProps} from "../MainMenu/MenuItemItem/MainMenuItem";
 
 interface ISideMenuProps {
     className?: string;

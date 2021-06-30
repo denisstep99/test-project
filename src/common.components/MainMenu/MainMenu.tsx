@@ -2,7 +2,7 @@ import './MainMenu.scss';
 import * as React from "react";
 import cx from 'classnames';
 import {Link} from "react-router-dom";
-import {IMainMenuItemProps} from "./MenuItem/MainMenuItem";
+import {IMainMenuItemProps} from "./MenuItemItem/MainMenuItem";
 
 //todo User тип вынести
 

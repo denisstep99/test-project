@@ -1,0 +1,21 @@
+@import '../../../common.styles/proteiStyles.scss';
+.selection-field {
+  & &__option {
+    color: $white;
+    cursor: pointer;
+    padding: 12px;
+    background-color: $primaryDarker;
+  }
+
+  & &__option:not(:last-child) {
+    border-bottom: 1px solid $primary;
+  }
+
+  & &__option_selected {
+    background-color: $primary;
+  }
+
+  & &__option_is-focused {
+    background-color: $primaryDark;
+  }
+}

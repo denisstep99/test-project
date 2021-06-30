@@ -3,7 +3,7 @@ import StoryRouter from 'storybook-react-router';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import {MainMenu} from "../../common.components/MainMenu/MainMenu";
-import {MainMenuItem} from "../../common.components/MainMenu/MenuItem/MainMenuItem";
+import {MainMenuItem} from "../../common.components/MainMenu/MenuItemItem/MainMenuItem";
 
 export default {
     title: 'Example/MainMenu',

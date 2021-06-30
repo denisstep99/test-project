@@ -13,12 +13,13 @@ import {useLanguage} from "../internationalization/hooks/useLanguage";
 import {useChangeLanguage} from "../internationalization/hooks/useChangeLanguage";
 import {LANGUAGE} from "../internationalization/types";
 import {SwitchButton} from "../common.components/SwitchButton/SwitchButton";
-import {MainMenuItem} from "../common.components/MainMenu/MenuItem/MainMenuItem";
+import {MainMenuItem} from "../common.components/MainMenu/MenuItemItem/MainMenuItem";
 import {MainMenu} from "../common.components/MainMenu/MainMenu";
 import {SideMenu} from "../common.components/SideMenu/SideMenu";
 import {SideMenuGroup} from "../common.components/SideMenu/SideMenuGroup/SideMenuGroup";
 import {SideMenuItem} from "../common.components/SideMenu/SideMenuItem/SideMenuItem";
 import {NavigationInfoBlock} from "../common.components/NavigationInfoBlock/NavigationInfoBlock";
+import {SelectionField} from "../common.components/SelectionField/SelectionField";
 
 
 interface INotebookScreenProps {}
@@ -135,6 +136,7 @@ export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
                 <Button label={buttonLabel} onClick={addButtonClickHandler}/>
                 <SwitchButton isSwitchedOn={isActive} labelOff={'RU'} labelOn={'EN'} onChange={changeLanguageButtonClickHandler}/>
             </div>
+            <SelectionField value={"2"} items={[]}/>
             <Notebook onEdit={noteEditHandler}/>
         </div>
     );

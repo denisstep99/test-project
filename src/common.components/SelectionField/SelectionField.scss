@@ -1,0 +1,54 @@
+@import '../../common.styles/proteiStyles';
+
+.selection-field {
+  position: relative;
+  z-index: 0;
+
+  & &__control {
+    border-radius: 8px;
+    padding: 4px;
+  }
+
+  & &__group {
+    color: $white;
+  }
+
+  & &__group:not(:last-child) {
+    border-bottom: solid 1px $primary;
+    padding-bottom: 0;
+  }
+
+  & &__group-heading{
+    color: $white;
+    display: flex;
+    align-items: center;
+    padding-bottom: 8px;
+  }
+
+  & &__group-heading::before {
+    content: '';
+    margin-right: 8px;
+    display: inline-block;
+    height: 2px;
+    background-color: $white;
+    width: 12px;
+  }
+
+  & &__group-heading::after {
+    margin-left: 8px;
+    content: '';
+    display: inline-block;
+    height: 2px;
+    background-color: $white;
+    flex-grow: 1;
+  }
+
+  & &__menu {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: -8px;
+    padding-top: 8px;
+    z-index: -2;
+    background-color: $primaryDarker;
+  }
+}

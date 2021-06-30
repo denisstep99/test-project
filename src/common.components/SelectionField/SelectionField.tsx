@@ -1,6 +1,8 @@
 import './SelectionField.scss';
 import * as React from "react";
 import {ChangeEvent, ChangeEventHandler} from "react";
+import Select from 'react-select';
+import {SelectionFieldOption} from './SelectionFieldOption/SelectionFieldOption';
 import cx from "classnames";
 
 interface IItem<T extends string | number = string> {
@@ -30,7 +32,14 @@ export const SelectionField = React.memo<ISelectionFieldProps>(({
                                                                     onChange
                                                                 }) => {
     return (
-        <div className={cx('SelectionField', className)}>
+        <div className={"selection-field"}>
+            <Select components={{ Option: SelectionFieldOption }} classNamePrefix="selection-field"
+                    options={[
+                        {label: 'Chocolate', options: [{value: 'strawberry', label: 'Strawberry'}, {value: 'strawberry', label: 'Strawberry'}]},
+                        {value: 'strawberry', label: 'Strawberry'},
+                        {label: 'Chocolate', options: [{value: 'strawberry', label: 'Strawberry'}, {value: 'strawberry', label: 'Strawberry'}]},
+                        {value: 'vanilla', label: 'Vanilla'}
+                    ]} onChange={(value) => console.log(value)} value={{value: 'chocolade', label: '3'}}/>
         </div>
     );
 });
