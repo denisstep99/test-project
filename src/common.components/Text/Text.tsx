@@ -1,23 +1,23 @@
 import './Text.scss';
 import * as React from 'react';
 import cx from 'classnames';
-import {useTranslation} from 'react-i18next';
+import {useTranslate} from "../../internationalization/hooks/useTranslate";
 
 interface ITextProps {
     label?: string;
-    classname?: string | Array<string>;
+    className?: string | Array<string>;
     params?: object;
     preventInterpolation?: boolean;
 }
 
 export const Text: React.FC<ITextProps> = ({
-                                               classname,
+                                               className,
                                                children,
                                                label,
                                                params,
                                                preventInterpolation = false,
                                            }) => {
-    const {t} = useTranslation();
+    const t = useTranslate();
 
     const defineContent = () => {
         if (children) {
@@ -35,7 +35,7 @@ export const Text: React.FC<ITextProps> = ({
     const content = defineContent();
 
     return (
-        <span className={cx(classname, 'text')}>
+        <span className={cx(className, 'text')}>
             {content}
         </span>
     );

@@ -1,0 +1,83 @@
+@import '../../common.styles/proteiStyles';
+
+.switch-button {
+  display: inline-block;
+  overflow: hidden;
+  border-radius: $radiusDefault;
+  width: 90px;
+  user-select: none;
+  border: 1px solid $primary;
+  color: $primaryDarker;
+  background-color: white;
+
+  &_disabled {
+    color: $darkGray;
+    border-color: $primaryLighter;
+    .switch-button__body::before {
+      background-color: $primaryLight;
+    }
+  }
+
+  .switch-button__body-part-off {
+    color: $bgMain;
+  }
+
+  &_on {
+    .switch-button__body::before {
+      left: 43px;
+    }
+
+    .switch-button__body-part-on {
+      color: $bgMain;
+    }
+
+    .switch-button__body-part-off {
+      color: $primaryDarker;
+    }
+  }
+
+  .switch-button__body-part {
+    transition-duration: 0.2s;
+  }
+
+  &__body {
+    cursor: pointer;
+    height: 40px;
+
+    display: flex;
+    position: relative;
+  }
+
+  &__body::before {
+    content: "";
+    border-radius: $radiusDefault;
+    display: block;
+    width: 47px;
+    height: 42px;
+
+    transition-duration: 0.2s;
+
+    background-color: $primary;
+
+    z-index: 1;
+
+    position: absolute;
+    left: -1px;
+    top: -1px;
+  }
+
+  &__body-part {
+    flex-basis: 45px;
+    flex-shrink: 0;
+
+    z-index: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__checkbox {
+    display: none;
+  }
+}

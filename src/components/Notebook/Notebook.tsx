@@ -20,7 +20,7 @@ export const Notebook:React.VFC<INotebookProps> = ({onEdit}) => {
     }
 
     const changeNotePositionHandler = (noteId: string, isIncrement: boolean) => {
-        dispatch(changePositionRequestAction(noteId, isIncrement));
+        dispatch(changePositionRequestAction({noteId, isIncrement}));
     }
 
 

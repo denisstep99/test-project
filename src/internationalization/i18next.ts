@@ -1,9 +1,10 @@
 import i18n from 'i18next';
 import {initReactI18next} from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import {LANGUAGE} from "./types";
 
 const resources = {
-    en: {
+    [LANGUAGE.EN]: {
         translation: {
             addButtonText: "Add",
             rowNameInputPlaceholder: "Name",
@@ -11,7 +12,7 @@ const resources = {
             editButtonText: "Edit",
         },
     },
-    ru: {
+    [LANGUAGE.RU]: {
         translation: {
             addButtonText: "Добавить",
             rowNameInputPlaceholder: "Название",
