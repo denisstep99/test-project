@@ -22,12 +22,13 @@
     color: $white;
     display: flex;
     align-items: center;
+    padding: 0;
     padding-bottom: 8px;
   }
 
   & &__group-heading::before {
     content: '';
-    margin-right: 8px;
+    margin-right: 12px;
     display: inline-block;
     height: 2px;
     background-color: $white;
@@ -35,7 +36,7 @@
   }
 
   & &__group-heading::after {
-    margin-left: 8px;
+    margin-left: 12px;
     content: '';
     display: inline-block;
     height: 2px;
@@ -50,5 +51,18 @@
     padding-top: 8px;
     z-index: -2;
     background-color: $primaryDarker;
+  }
+
+  & &__menu-list {
+    overflow: hidden;
+
+  }
+
+  & &__indicator {
+    color: #3C6CB5;
+  }
+
+  & &__indicator:hover {
+    color: #122d61;
   }
 }

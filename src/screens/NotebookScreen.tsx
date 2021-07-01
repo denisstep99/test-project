@@ -136,7 +136,6 @@ export const NotebookScreen: React.VFC<INotebookScreenProps> = () => {
                 <Button label={buttonLabel} onClick={addButtonClickHandler}/>
                 <SwitchButton isSwitchedOn={isActive} labelOff={'RU'} labelOn={'EN'} onChange={changeLanguageButtonClickHandler}/>
             </div>
-            <SelectionField value={"2"} items={[]}/>
             <Notebook onEdit={noteEditHandler}/>
         </div>
     );

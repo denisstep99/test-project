@@ -1,27 +1,30 @@
 import './SelectionField.scss';
 import * as React from "react";
-import {ChangeEvent, ChangeEventHandler} from "react";
 import Select from 'react-select';
 import {SelectionFieldOption} from './SelectionFieldOption/SelectionFieldOption';
 import cx from "classnames";
 
-interface IItem<T extends string | number = string> {
+interface IItem {
     label?: string;
-    value: T;
+    value: string | number;
 }
 
-interface IGroupItems<T extends string | number = string> {
+interface IGroup {
     label: string;
-    items: Array<IItem<T>>;
+    options: Array<IItem>;
 }
 
-interface ISelectionFieldProps<T extends string | number = string> {
-    value: T;
-    items: Array<IItem<T> | IGroupItems<T>>;
+interface ISelectionFieldProps {
+    value: number | string;
+    items: Array<IItem | IGroup>;
     disabled?: boolean;
     className?: string;
+    placeholder?: string;
 
-    onChange?(value: T): void;
+    onChange?(value: number | string): void;
+
+    //используется для тестирования отображения компонента.
+    reactSelectProps?: object;
 }
 
 export const SelectionField = React.memo<ISelectionFieldProps>(({
@@ -29,17 +32,44 @@ export const SelectionField = React.memo<ISelectionFieldProps>(({
                                                                     items,
                                                                     disabled,
                                                                     className,
-                                                                    onChange
+                                                                    onChange,
+                                                                    placeholder,
+                                                                    reactSelectProps = {}
                                                                 }) => {
+    const changeEventHandler = (item: IItem) => {
+        onChange && onChange(item.value);
+    }
+
+    const getItemByValue = (value?: string | number): IItem | false => {
+        let resultItem: IItem | false = false;
+
+        if (!value) {
+            return false;
+        }
+
+        items.some((item) => {
+            if ((item as IGroup).options) {
+                const searchedItem = (item as IGroup).options.find(currentItem => currentItem.value === value);
+
+                if (searchedItem) {
+                    return resultItem = searchedItem;
+                }
+            } else {
+                if ((item as IItem).value === value) {
+                    return resultItem = (item as IItem);
+                }
+            }
+            return false;
+        });
+
+        return resultItem;
+    }
+
     return (
-        <div className={"selection-field"}>
-            <Select components={{ Option: SelectionFieldOption }} classNamePrefix="selection-field"
-                    options={[
-                        {label: 'Chocolate', options: [{value: 'strawberry', label: 'Strawberry'}, {value: 'strawberry', label: 'Strawberry'}]},
-                        {value: 'strawberry', label: 'Strawberry'},
-                        {label: 'Chocolate', options: [{value: 'strawberry', label: 'Strawberry'}, {value: 'strawberry', label: 'Strawberry'}]},
-                        {value: 'vanilla', label: 'Vanilla'}
-                    ]} onChange={(value) => console.log(value)} value={{value: 'chocolade', label: '3'}}/>
+        <div className={cx("selection-field", className)}>
+            <Select components={{Option: SelectionFieldOption}} classNamePrefix="selection-field"
+                    options={items} onChange={changeEventHandler} isDisabled={disabled} placeholder={placeholder}
+                    value={getItemByValue(value)} {...reactSelectProps} />
         </div>
     );
 });

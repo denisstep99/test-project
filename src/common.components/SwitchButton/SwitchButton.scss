@@ -1,36 +1,38 @@
-@import '../../common.styles/styles';
+@import '../../common.styles/proteiStyles';
 
 .switch-button {
   display: inline-block;
   overflow: hidden;
-  border-radius: $smallRadius;
+  border-radius: $radiusDefault;
   width: 90px;
   user-select: none;
-  border: 1px solid $darkCyan;
-
+  border: 1px solid $primary;
+  color: $primaryDarker;
   background-color: white;
 
   &_disabled {
+    color: $darkGray;
+    border-color: $primaryLighter;
     .switch-button__body::before {
-      background-color: #6CA399;
+      background-color: $primaryLight;
     }
   }
 
   .switch-button__body-part-off {
-    color: white;
+    color: $bgMain;
   }
 
   &_on {
     .switch-button__body::before {
-      left: 45px;
+      left: 43px;
     }
 
     .switch-button__body-part-on {
-      color: white;
+      color: $bgMain;
     }
 
     .switch-button__body-part-off {
-      color: black;
+      color: $primaryDarker;
     }
   }
 
@@ -48,20 +50,20 @@
 
   &__body::before {
     content: "";
-    border-radius: $smallRadius;
+    border-radius: $radiusDefault;
     display: block;
-    width: 45px;
-    height: 100%;
+    width: 47px;
+    height: 42px;
 
     transition-duration: 0.2s;
 
-    background-color: $darkCyan;
+    background-color: $primary;
 
     z-index: 1;
 
     position: absolute;
-    left: 0;
-    top: 0;
+    left: -1px;
+    top: -1px;
   }
 
   &__body-part {
