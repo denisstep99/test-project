@@ -16,11 +16,12 @@ interface IInputFieldProps {
     placeholder?: string;
     max?: number;
     disabled?: boolean;
+    name?: string;
 
     onChange?(value: string): void;
 }
 
-export const InputField: React.VFC<IInputFieldProps> = React.memo(({placeholder, onChange, type, value, max, disabled}) => {
+export const InputField: React.VFC<IInputFieldProps> = React.memo(({placeholder, onChange, type, value, max, disabled, name}) => {
 
     const changeValueHandler: ChangeEventHandler =
         (event: ChangeEvent<HTMLInputElement>) => onChange && onChange(event.currentTarget.value || "");
@@ -36,6 +37,7 @@ export const InputField: React.VFC<IInputFieldProps> = React.memo(({placeholder,
             className="input-field"
             placeholder={placeholder}
             onChange={changeValueHandler}
+            name={name}
         />
     );
 });

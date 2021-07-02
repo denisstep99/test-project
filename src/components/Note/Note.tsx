@@ -18,6 +18,8 @@ interface INoteProps {
     onPositionChange?(noteId: string, isIncrement: boolean): void;
 
     onEdit?(noteId: string): void;
+
+    testId?: string;
 }
 
 export const Note: React.VFC<INoteProps> = React.memo(
@@ -29,7 +31,8 @@ export const Note: React.VFC<INoteProps> = React.memo(
          mix,
          onEdit,
          onPositionChange,
-         onRemove
+         onRemove,
+         testId
      }) => {
 
         const editClickHandler = () => {
@@ -46,7 +49,7 @@ export const Note: React.VFC<INoteProps> = React.memo(
 
 
         return (
-            <div className={cx("note", mix)}>
+            <div className={cx("note", mix)} data-testid={testId}>
                 <div className="note__index">
                     {position}
                 </div>

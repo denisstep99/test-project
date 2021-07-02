@@ -8,9 +8,11 @@ import {changePositionRequestAction, removeNoteRequestAction} from "../../sagas/
 interface INotebookProps {
     onEdit?(noteId: string): void;
     editMode?: boolean;
+
+    testId?: string;
 }
 
-export const Notebook:React.VFC<INotebookProps> = ({onEdit}) => {
+export const Notebook:React.VFC<INotebookProps> = ({onEdit, testId}) => {
 
     const dispatch = useDispatch();
     const notes = useSelector(getNotesSorted);
@@ -25,8 +27,8 @@ export const Notebook:React.VFC<INotebookProps> = ({onEdit}) => {
 
 
     return (
-        <div className="notebook">
-            {notes.map((note) => {
+        <div className="notebook" data-testid={testId}>
+            {notes.map((note, index) => {
                 return (
                     <Note
                         {...note}
@@ -35,6 +37,7 @@ export const Notebook:React.VFC<INotebookProps> = ({onEdit}) => {
                         onEdit={onEdit}
                         onRemove={removeNoteHandler}
                         onPositionChange={changeNotePositionHandler}
+                        testId={`note-${index}`}
                     />
                 );
             })}

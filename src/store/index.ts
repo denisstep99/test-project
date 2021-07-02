@@ -8,7 +8,7 @@ export interface IRootStore {
     notes: INotesState;
 }
 
-const sagaMiddleware = createSagaMiddleware();
+export const sagaMiddleware = createSagaMiddleware();
 
 export const rootReducer = combineReducers<IRootStore>({notes: notesReducer});
 

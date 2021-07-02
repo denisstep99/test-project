@@ -16,18 +16,19 @@ interface IPagination {
      * Количество отображаемых страниц
      */
     displayPagesCount: number;
+
     /**
      * Обработчик смены страницы
      */
     onPageChange?(currentPage: number): void;
 }
 
-export const NavigationInfoBlock: React.VFC<IPagination> = (({
-                                                                               className,
-                                                                               currentPage,
-    pagesCount,
-    displayPagesCount
-                                                                           }) => {
+export const Pagination: React.VFC<IPagination> = (({
+                                                        className,
+                                                        currentPage,
+                                                        pagesCount,
+                                                        displayPagesCount
+                                                    }) => {
     return (
         <div className={cx('pagination', className)}>
 
