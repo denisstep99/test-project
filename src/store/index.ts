@@ -1,5 +1,5 @@
 import {INotesState} from "./notes/Types";
-import notesReducer from "./notes/Slice";
+import {noteReducer} from "./notes/Slice";
 import sagas from './../sagas/notes/Saga';
 import {configureStore, getDefaultMiddleware, combineReducers} from "@reduxjs/toolkit";
 import createSagaMiddleware from 'redux-saga'
@@ -10,7 +10,7 @@ export interface IRootStore {
 
 export const sagaMiddleware = createSagaMiddleware();
 
-export const rootReducer = combineReducers<IRootStore>({notes: notesReducer});
+export const rootReducer = combineReducers<IRootStore>({notes: noteReducer});
 
 const middleware = getDefaultMiddleware({
     thunk: false,

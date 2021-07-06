@@ -4,11 +4,6 @@ import {INote, INotesState} from "./Types";
 
 const initialState: INotesState = {};
 
-const setNotesAction: CaseReducer<INotesState, PayloadAction<Array<INote>>> = (state, action) => {
-    const notes = action.payload;
-    notes.forEach(note => state[note.noteId] = note);
-}
-
 const changeNotePositionAction: CaseReducer<INotesState, PayloadAction<{
     noteId: string;
     isPositionIncrement: boolean;
@@ -71,12 +66,14 @@ const noteSlice = createSlice({
     name: 'NOTE',
     initialState,
     reducers: {
-        setNotesAction,
+        setNotesAction(state, {payload}: PayloadAction<Array<INote>>) {
+            payload.forEach(note => state[note.noteId] = note);
+        },
         addNoteAction,
         removeNoteAction,
         changeNotePositionAction,
+        addNoteRequestAction(state, {payload}: PayloadAction<INote>) {},
     }
 });
 
-export default noteSlice.reducer;
-export const noteActions = noteSlice.actions;
+export const {reducer: noteReducer, actions: noteActions} = noteSlice;

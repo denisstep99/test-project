@@ -11,7 +11,6 @@ import {
 import {INote} from "../../store/notes/Types";
 import {noteActions} from "../../store/notes/Slice";
 import {
-    AddNoteRequestAction,
     ChangePositionRequestAction,
     NOTE_SAGA_ACTION,
     RemoveNoteRequestAction,
@@ -19,13 +18,13 @@ import {
 } from "./Types";
 import {getNoteById, getNoteByPosition} from "../../store/notes/Selectors";
 
-const {setNotesAction, addNoteAction, changeNotePositionAction, removeNoteAction} = noteActions;
+const {addNoteAction, changeNotePositionAction, removeNoteAction} = noteActions;
 
 function* requestNotes(): Generator<StrictEffect, void, IResponse<Array<INote>>> {
     const response: IResponse<Array<INote>> = yield call(getNotes);
     const notes: Array<INote> = response.payload || [];
 
-    yield put(setNotesAction(notes));
+    yield put(noteActions.setNotesAction(notes));
 }
 
 function* removeNote(action: RemoveNoteRequestAction): SagaIterator {
@@ -37,10 +36,8 @@ function* removeNote(action: RemoveNoteRequestAction): SagaIterator {
     }
 }
 
-function* addNote(action: AddNoteRequestAction): SagaIterator {
-    const newNote: INote = action.payload;
-
-    const response: IResponse<INote> = yield call(createNote, newNote);
+function* addNote({payload}: ReturnType<typeof noteActions.addNoteRequestAction>) {
+    const response: IResponse<INote> = yield call(createNote, payload);
     const note = response.payload;
 
     if (note) {
@@ -87,14 +84,14 @@ function* setNote(action: SetNoteRequestAction): SagaIterator {
 
     const response: IResponse = yield call(updateNotes, [updatedNote]);
     if (response.status === STATUS_CODE.GOOD) {
-        yield put(setNotesAction([updatedNote]));
+        yield put(noteActions.setNotesAction([updatedNote]));
     }
 }
 
 
 export default function* sagas (): SagaIterator {
     yield takeLatest(NOTE_SAGA_ACTION.GET_NOTES_REQUEST, requestNotes);
-    yield takeEvery(NOTE_SAGA_ACTION.ADD_NOTE_REQUEST, addNote);
+    yield takeEvery(noteActions.addNoteRequestAction, addNote);
     yield takeLatest(NOTE_SAGA_ACTION.REMOVE_NOTE_REQUEST, removeNote);
     yield takeEvery(NOTE_SAGA_ACTION.CHANGE_POSITION_REQUEST, changePosition);
     yield takeLatest(NOTE_SAGA_ACTION.SET_NOTE_REQUEST, setNote);
